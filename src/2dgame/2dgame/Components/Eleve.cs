@@ -12,6 +12,7 @@ namespace _2dgame.Components
 {
     class Eleve : EntityComponent, Barebones.Framework.IUpdateable
     {
+		GamepadComponent m_GamePad;
         KeyboardReader m_Keyboard;
         PhysicsComponent m_Physics;
 
@@ -28,6 +29,7 @@ namespace _2dgame.Components
         {
             yield return new Dependency<KeyboardReader>( item => m_Keyboard = item );
             yield return new Dependency<PhysicsComponent>(item => m_Physics = item);
+			yield return new Dependency<GamepadComponent>(item => m_GamePad = item);
         }
 
         protected override void OnOwnerSet()
@@ -55,9 +57,10 @@ namespace _2dgame.Components
             if (m_Keyboard.IsKeyDown(Keys.S) || m_Keyboard.IsKeyDown(Keys.Down))
                 vel.Y -= m_Speed;
 
+			m_Physics.LinearVelocity = m_GamePad.getLeftThumbStick();
 
 
-            m_Physics.LinearVelocity = vel;
+            //m_Physics.LinearVelocity = vel;
         }
 
         void OnKeyPressed(KeyPressed msg)

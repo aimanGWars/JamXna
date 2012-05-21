@@ -102,6 +102,7 @@ namespace _2dgame
 			//create carré rouge
 			Entity eleve = Owner.CreateEntity();
 			camera.AddComponent(new FollowEntity(eleve, 0.5f * Vector3.UnitY, false, false));
+			eleve.AddComponent(new GamepadComponent());
 			Vector2 bodySize = IMAGE_SCALE * new Vector2(50, 50);
 			m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
 			eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
