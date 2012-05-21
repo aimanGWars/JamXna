@@ -49,10 +49,7 @@ namespace _2dgame
             Owner.AddComponent( new RawRenderer(projection, Color.Black) );
 
             Vector2 minWorld = -0.5f * IMAGE_SCALE * DESIRED_SCREEN_SIZE;
-            minWorld.X = -1000;
             Vector2 maxWorld = 0.5f * IMAGE_SCALE * DESIRED_SCREEN_SIZE;
-            maxWorld.X = 1000;
-            maxWorld.Y = 1000;
 
             m_Physics = new Physics(Vector2.Zero, minWorld, maxWorld)
                 {
@@ -101,99 +98,24 @@ namespace _2dgame
 
             //create carré rouge
             Entity eleve = Owner.CreateEntity();
-            camera.AddComponent(new FollowEntity(eleve, 0.5f * Vector3.UnitY, false, true));
+            camera.AddComponent(new FollowEntity(eleve, 0.5f * Vector3.UnitY, false, false));
             Vector2 bodySize = IMAGE_SCALE * new Vector2(50, 50);
             m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
             eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
             eleve.AddComponent(new Eleve(2, .1f));
 
+            Entity background = Owner.CreateEntity();
+			
+			Entity frontmountains = Owner.CreateEntity();
 
-            Vector3 background_translation = -0.5f * Vector3.UnitY;
-            CreateBackground(camera, background_translation);
-
-            //add grass in front of everything
-            Entity grass = Owner.CreateEntity();
-            grass.Transform = Matrix.CreateTranslation(background_translation);
-            grass.AddComponent(new FollowEntity(camera, Vector3.Zero, false, true));
-            m_EZBakeOven.MakeParallaxSprite(grass, IMAGE_SCALE * new Vector2(800, 600), "grass", 1.0f);
+			Vector2 backsize = IMAGE_SCALE * DESIRED_SCREEN_SIZE;
+			m_EZBakeOven.MakeParallaxSprite(frontmountains, backsize, "bumps_front", 0.9f);
 
             ResourceLoader loader = Owner.GetComponent<ResourceLoader>();
-            loader.ForceLoadAll(); // so as to not have glitches in the first couple seconds while all the items are loaded as they are accessed
+            loader.ForceLoadAll();
 
             // enter: The Queen!
             loader.GetResource("fanfare").Get<SoundEffect>().Play();
-        }
-
-        private void CreateBackground(Entity camera, Vector3 translation)
-        {
-            Vector2 backsize = IMAGE_SCALE * new Vector2(800, 600);
-            Vector3 delta_follow = Vector3.Zero;
-            Matrix background_translation = Matrix.CreateTranslation(translation);
-
-            Entity clouds = Owner.CreateEntity();
-            clouds.Transform = background_translation;
-            clouds.AddComponent(new FollowEntity(camera, delta_follow, false, true));
-            m_EZBakeOven.MakeParallaxSprite(clouds, backsize, "clouds", 0.3f);
-
-            Entity sun = Owner.CreateEntity();
-            sun.Transform = background_translation;
-            sun.AddComponent(new FollowEntity(camera, delta_follow, false, true));
-
-            Entity sunjoint = sun.CreateChild();
-            sunjoint.Transform = Matrix.CreateTranslation(new Vector3(-2, 1, 0));
-
-            Vector2 sunsize = IMAGE_SCALE * new Vector2(300, 289);
-            Entity sunray2 = sunjoint.CreateChild();
-            sunray2.AddComponent(new RotatingComponent(-6));
-            m_EZBakeOven.MakeSprite(sunray2, sunsize, "sunray2");
-
-            Entity sunray1 = sunjoint.CreateChild();
-            sunray1.AddComponent(new RotatingComponent(10));
-            m_EZBakeOven.MakeSprite(sunray1, sunsize, "sunray1");
-
-            Entity sunbody = sunjoint.CreateChild();
-            sunbody.AddComponent(new RotatingComponent(180));
-            m_EZBakeOven.MakeSprite(sunbody, sunsize, "sunbody");
-
-            Entity sunface = sunjoint.CreateChild();
-            m_EZBakeOven.MakeSprite(sunface, sunsize, "sunface");
-
-            Entity backmountains = Owner.CreateEntity();
-            backmountains.Transform = background_translation;
-            backmountains.AddComponent(new FollowEntity(camera, delta_follow, false, true));
-            m_EZBakeOven.MakeParallaxSprite(backmountains, backsize, "bumps_back", 0.5f);
-
-            Entity trees = Owner.CreateEntity();
-            trees.Transform = background_translation;
-            trees.AddComponent(new FollowEntity(camera, delta_follow, false, true));
-            m_EZBakeOven.MakeParallaxSprite(trees, backsize, "trees", 0.75f);
-
-            Entity frontmountains = Owner.CreateEntity();
-            frontmountains.Transform = background_translation;
-            frontmountains.AddComponent(new FollowEntity(camera, delta_follow, false, true));
-            m_EZBakeOven.MakeParallaxSprite(frontmountains, backsize, "bumps_front", 0.9f);
-        }
-
-        private void CreateBeefeater(Vector3 pos)
-        {
-            float beefeater_distance = 1.05f;
-
-            Entity beefeater = Owner.CreateEntity();
-            beefeater.Transform = Matrix.CreateScale(0.25f) * Matrix.CreateTranslation(pos);
-
-            Entity beef_legs_joint = beefeater.CreateChild();
-            beef_legs_joint.Transform = Matrix.CreateTranslation(-beefeater_distance * Vector3.UnitY);
-
-            Entity beef_legs = beef_legs_joint.CreateChild();
-            beef_legs.AddComponent(new LeftRightComponent(-10, 10, 1, -beefeater_distance * Vector3.UnitY));
-            m_EZBakeOven.MakeSprite(beef_legs, IMAGE_SCALE * new Vector2(105, 219), "beefeater_legs");
-
-            Entity beef_body_joint = beefeater.CreateChild();
-            beef_body_joint.Transform = Matrix.CreateTranslation(beefeater_distance * Vector3.UnitY);
-
-            Entity beef_body = beef_body_joint.CreateChild();
-            beef_body.AddComponent(new LeftRightComponent(-10, 10, -1, beefeater_distance * Vector3.UnitY));
-            m_EZBakeOven.MakeSprite(beef_body, IMAGE_SCALE * new Vector2(180, 351), "beefeater_body");
         }
     }
 }
