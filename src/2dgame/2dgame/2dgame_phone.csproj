@@ -84,6 +84,7 @@
     <Compile Include="Components\Eleve.cs" />
     <Compile Include="Components\FollowEntity.cs" />
     <Compile Include="Components\FollowFinger.cs" />
+    <Compile Include="Components\HUD.cs" />
     <Compile Include="Components\JointComponent.cs" />
     <Compile Include="Components\LeftRightComponent.cs" />
     <Compile Include="Components\PhysicsComponent.cs" />

@@ -21,6 +21,7 @@ namespace _2dgame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public HUD gameHud;
 
         public Game2D()
         {
@@ -28,9 +29,9 @@ namespace _2dgame
 			graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
-            Window.Title = "test aiman git";
+            Window.Title = "QuebecWarfare";
             // Frame rate is 30 fps by default for Windows Phone.
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
+            TargetElapsedTime = TimeSpan.FromTicks(166667); //60fps on PC
 
             // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
@@ -50,6 +51,8 @@ namespace _2dgame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            gameHud = new HUD(this);
+            Components.Add(gameHud);
 
             base.Initialize();
         }
@@ -64,6 +67,7 @@ namespace _2dgame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            gameHud.score = 0;
         }
 
         /// <summary>
@@ -87,6 +91,7 @@ namespace _2dgame
                 this.Exit();
 
             // TODO: Add your update logic here
+            gameHud.score = gameHud.score + (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             base.Update(gameTime);
         }
@@ -99,7 +104,8 @@ namespace _2dgame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            //draw HUD
+            gameHud.Draw(gameTime);
 
             base.Draw(gameTime);
         }
