@@ -95,21 +95,18 @@ namespace _2dgame
 
             camera.Transform = Matrix.CreateWorld(new Vector3(0, -1, 1), -Vector3.UnitZ, Vector3.UnitY);
 
-
-            //create carré rouge
-            Entity eleve = Owner.CreateEntity();
-            camera.AddComponent(new FollowEntity(eleve, 0.5f * Vector3.UnitY, false, false));
-            Vector2 bodySize = IMAGE_SCALE * new Vector2(50, 50);
-            m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
-            eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
-            eleve.AddComponent(new Eleve(2, .1f));
-
-            Entity background = Owner.CreateEntity();
-			
-			Entity frontmountains = Owner.CreateEntity();
-
+			Entity background = Owner.CreateEntity();
 			Vector2 backsize = IMAGE_SCALE * DESIRED_SCREEN_SIZE;
-			m_EZBakeOven.MakeParallaxSprite(frontmountains, backsize, "bumps_front", 0.9f);
+			m_EZBakeOven.MakeParallaxSprite(background, backsize, "Background", 0.9f);
+
+			//create carré rouge
+			Entity eleve = Owner.CreateEntity();
+			camera.AddComponent(new FollowEntity(eleve, 0.5f * Vector3.UnitY, false, false));
+			Vector2 bodySize = IMAGE_SCALE * new Vector2(50, 50);
+			m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
+			eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
+			eleve.AddComponent(new Eleve(2, .1f));
+
 
             ResourceLoader loader = Owner.GetComponent<ResourceLoader>();
             loader.ForceLoadAll();
