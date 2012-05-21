@@ -16,40 +16,6 @@ namespace _2dgame
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Factory Products (entities)
-        public class DefaultEntity : Entity
-        {
-            public DefaultEntity()
-            {
-
-            }
-        }
-
-        public class StudentEntity : Entity
-        {
-            public StudentEntity()
-            {
-
-            }
-        }
-
-        public class CameraEntity : Entity
-        {
-            public CameraEntity()
-            {
-
-            }            
-        }
-
-        public class QueenEntity : Entity
-        {
-            public QueenEntity()
-            {
-
-            }
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Factories (entities' creators)
         public class DefaultFactory : EntityFactory
         {
