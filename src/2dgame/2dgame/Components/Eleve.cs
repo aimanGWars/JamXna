@@ -17,12 +17,10 @@ namespace _2dgame.Components
         PhysicsComponent m_Physics;
 
         readonly float m_Speed;
-        readonly float m_JumpForce;
 
-        public Eleve(float speed, float jumpforce)
+        public Eleve(float speed )
         {
             m_Speed = speed;
-            m_JumpForce = jumpforce;
         }
 
         public override IEnumerable<Barebones.Dependencies.IDependency> GetDependencies()
@@ -34,41 +32,34 @@ namespace _2dgame.Components
 
         protected override void OnOwnerSet()
         {
-            Owner.Engine.Forum.RegisterListener<KeyPressed>(OnKeyPressed);
-
             base.OnOwnerSet();
         }
 
         public void Update(float dt)
         {
-            Vector2 vel = m_Physics.LinearVelocity;
-            vel.X = 0;
-            vel.Y = 0;
+			Vector2 vel = Vector2.Zero;
 
-            if (m_Keyboard.IsKeyDown(Keys.D) || m_Keyboard.IsKeyDown(Keys.Right))
-                vel.X += m_Speed;
+			if (m_GamePad.isConnected())
+			{
+				vel = m_GamePad.getLeftThumbStick();
+			}
+			else
+			{
+				if (m_Keyboard.IsKeyDown(Keys.D) || m_Keyboard.IsKeyDown(Keys.Right))
+					vel.X += m_Speed;
 
-            if (m_Keyboard.IsKeyDown(Keys.A) || m_Keyboard.IsKeyDown(Keys.Left))
-                vel.X -= m_Speed;
+				if (m_Keyboard.IsKeyDown(Keys.A) || m_Keyboard.IsKeyDown(Keys.Left))
+					vel.X -= m_Speed;
 
-            if (m_Keyboard.IsKeyDown(Keys.W) || m_Keyboard.IsKeyDown(Keys.Up))
-                vel.Y += m_Speed;
+				if (m_Keyboard.IsKeyDown(Keys.W) || m_Keyboard.IsKeyDown(Keys.Up))
+					vel.Y += m_Speed;
 
-            if (m_Keyboard.IsKeyDown(Keys.S) || m_Keyboard.IsKeyDown(Keys.Down))
-                vel.Y -= m_Speed;
+				if (m_Keyboard.IsKeyDown(Keys.S) || m_Keyboard.IsKeyDown(Keys.Down))
+					vel.Y -= m_Speed;
+			}
 
-			m_Physics.LinearVelocity = m_GamePad.getLeftThumbStick();
-
-
-            //m_Physics.LinearVelocity = vel;
-        }
-
-        void OnKeyPressed(KeyPressed msg)
-        {
-            if (msg.Key == Keys.Space)
-            {
-                m_Physics.ApplyImpulse(Vector2.UnitY * m_JumpForce);
-            }
+			m_Physics.LinearVelocity = vel;
+            
         }
     }
 }

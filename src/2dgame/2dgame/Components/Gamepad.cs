@@ -12,6 +12,12 @@ namespace _2dgame.Components
 	{
 		private PlayerIndex m_Player = PlayerIndex.One;
 
+		public bool isConnected()
+		{
+			GamePadState state = GamePad.GetState(m_Player);
+			return state.IsConnected;
+		}
+
 		public Vector2 getLeftThumbStick()
 		{
 			GamePadState state = GamePad.GetState( m_Player );

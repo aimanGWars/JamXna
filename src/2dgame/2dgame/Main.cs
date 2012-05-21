@@ -106,7 +106,7 @@ namespace _2dgame
 			Vector2 bodySize = IMAGE_SCALE * new Vector2(50, 50);
 			m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
 			eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
-			eleve.AddComponent(new Eleve(2, .1f));
+			eleve.AddComponent(new Eleve(1f));
 
 
             ResourceLoader loader = Owner.GetComponent<ResourceLoader>();
