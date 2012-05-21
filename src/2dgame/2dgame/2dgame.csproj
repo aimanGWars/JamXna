@@ -83,11 +83,12 @@
     <Compile Include="Components\RotatingComponent.cs" />
     <Compile Include="Components\Selectable.cs" />
     <Compile Include="Components\UpDownComponent.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="EngineComponents\Physics.cs" />
     <Compile Include="EngineComponents\TouchReader.cs" />
     <Compile Include="Events\PhysicsEvents.cs" />
     <Compile Include="Events\TouchEvents.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="_Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game2D.cs" />

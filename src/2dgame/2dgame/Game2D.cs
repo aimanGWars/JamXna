@@ -25,6 +25,8 @@ namespace _2dgame
         public Game2D()
         {
             graphics = new GraphicsDeviceManager(this);
+			graphics.IsFullScreen = true;
+
             Content.RootDirectory = "Content";
             Window.Title = "test aiman git";
             // Frame rate is 30 fps by default for Windows Phone.

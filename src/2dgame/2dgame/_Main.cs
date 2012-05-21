@@ -18,7 +18,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace _2dgame
 {
-    class Main : EngineComponent
+    class _Main : EngineComponent
     {
         static readonly Vector2 DESIRED_SCREEN_SIZE = new Vector2(1440, 900);
         const float IMAGE_SCALE = 0.01f;
@@ -46,7 +46,7 @@ namespace _2dgame
             //create renderer
             //create the projection matrix
             Matrix projection = Matrix.CreateOrthographic(IMAGE_SCALE * DESIRED_SCREEN_SIZE.X, IMAGE_SCALE * DESIRED_SCREEN_SIZE.Y, -1, 1);
-            Owner.AddComponent( new RawRenderer(projection, Color.Black) );
+            Owner.AddComponent(new RawRenderer(projection, Color.SkyBlue));
 
             Vector2 minWorld = -0.5f * IMAGE_SCALE * DESIRED_SCREEN_SIZE;
             minWorld.X = -1000;
