@@ -91,7 +91,7 @@ namespace _2dgame
         void OnInitialise(InitializeMessage msg)
         {
             RegisterResources();
-
+            
             //add the camera to view the scene
             Entity camera = Owner.CreateEntity();
             camera.AddComponent(new Camera());
