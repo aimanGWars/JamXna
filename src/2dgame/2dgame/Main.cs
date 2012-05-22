@@ -107,6 +107,15 @@ namespace _2dgame
 			m_EZBakeOven.MakeSprite(eleve, bodySize, "Eleve", 4, 10);
 			eleve.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
 			eleve.AddComponent(new Eleve(1f));
+            eleve.Name = "Eleve";
+
+            //CARRÉ ROUGE TEST
+            Entity eleve2 = Owner.CreateEntity();
+            ////eleve2.Transform = Matrix.CreateTranslation(-1.0f, -1.0f, 0.0f);
+            Vector2 bodySize2 = IMAGE_SCALE * new Vector2(50, 50);
+            m_EZBakeOven.MakeSprite(eleve2, bodySize2, "Eleve", 4, 10);
+            eleve2.AddComponent(m_Physics.CreateRectangle(0.5f * bodySize2, 1.0f, FarseerPhysics.Dynamics.BodyType.Dynamic));
+            //eleve2.AddComponent(new Eleve(1f));
 
 
             ResourceLoader loader = Owner.GetComponent<ResourceLoader>();

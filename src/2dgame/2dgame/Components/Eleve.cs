@@ -32,6 +32,7 @@ namespace _2dgame.Components
 
         protected override void OnOwnerSet()
         {
+            Owner.Forum.RegisterListener<CollisionMsg>(OnCollision);
             base.OnOwnerSet();
         }
 
@@ -60,6 +61,20 @@ namespace _2dgame.Components
 
 			m_Physics.LinearVelocity = vel;
             
+        }
+
+        void OnCollision(CollisionMsg msg)
+        {
+            if (msg.First.Name == "Eleve" || msg.Second.Name == "Eleve")
+            {
+                Game2D.gameHud.lives--;
+                if (Game2D.gameHud.lives <= 0)
+                {
+                    Game2D.gameHud.lives = 0;
+                }
+            }
+            
+            //Game2D.gameHud.score++;
         }
     }
 }

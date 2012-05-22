@@ -21,7 +21,7 @@ namespace _2dgame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public HUD gameHud;
+        public static HUD gameHud;
 
         public Game2D()
         {
@@ -91,7 +91,7 @@ namespace _2dgame
                 this.Exit();
 
             // TODO: Add your update logic here
-            gameHud.score = gameHud.score + (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
 
             base.Update(gameTime);
         }
